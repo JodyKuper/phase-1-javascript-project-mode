@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Igredient Finder</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script defer src="index.js"></script>
+
+  </head>
+
+  <body>
+      <h1>QUAIL</h1>
+      <h2>Your Ingredient Needs</h2>
+
+      <hr id='select-cuisine'>
+        <h2>Ingredients by Cusine</h2>
+      
+      <label for="select-cuisine">Select Cuisine</label>
+      <select id="cuisine-dropdown" name="select-cuisine">
+        <option value="" ></option>
+        <option value="French">French</option>
+        <option value="Japanese">Japanese</option>
+        <option value="Chinese">Chinese</option>
+        <option value="Indian">Indian</option>
+      </select>
+
+     
+      <!-- <div>
+          <h2>Ingredients by Recipe</h2>
+          <button id='search-recipe'>recipes</button>
+      </div> -->
+      <h2>Ingredients by Meal</h2>
+
+      <div id='search-div'>
+          <form id='search-form-recipe'>
+              <input name='search-recipe' placeholder="Recipe" value="">
+              <input type='submit' value="search">
+          </form>
+      </div>
+
+      <div id=meal-holder>
+        <ul>
+
+        </ul>
+      </div>
+
+      <div id='recipe-holder'>
+      </div>
+
+      <div id='ingredient-holder'>
+      </div>
+
+ 
+    </body>
+
+
