@@ -4,23 +4,27 @@ body {
     margin:auto;
     text-align: center;
     background-color:black;
-}
+      /* background-image: url(images.jpg);  */
+} 
 
 div {
     display:block;
     color:ivory;
     list-style: none;
+    
 }
 
 h1 {
     color: ivory;
 }
-
 h2 {
     color:blanchedalmond;
 }
 
-#select-cuisine {
-    : center;
+#cuisine-dropdown {
+    display:inline-block;        
+    margin-right: 100px;       
+    position: relative;
+
 
 }
