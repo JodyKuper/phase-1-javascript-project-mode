@@ -12,7 +12,7 @@ let MEAL_ARRAY = []
 const fetchByName = () => { 
     // debugger
     event.preventDefault()
-    resetPage()
+    // resetPage()
     fetch(Meal_URL +`?s=${recipeName[0].value}`)
     .then ((res)=> res.json())
     .then((data) => {
@@ -26,6 +26,7 @@ const fetchByName = () => {
 
 const fetchByCuisine =() => {
     event.preventDefault()
+    // resetPage()
 fetch(Area_URL +`?a=${dropDown.value}`)
 .then ((res)=>res.json())
 .then ((data)=> {
@@ -48,6 +49,7 @@ const recipeListItem  =(recipe) => {
 
 
 const mealList = (cuisines) => {
+    // resetPage()
     const newMeal = document.createElement('li')
     newMeal.innerText=cuisines.strMeal
     mealHolder.appendChild(newMeal)
@@ -66,28 +68,49 @@ const ingredientList =(e)=> {
     if (!theMeal.ingredientArr) {
         let ingredientArr = [];
         for(let i=1; i<=20; ++i) {
-        const ingredientString = theMeal[`strMeasure${i}`] +" "+  theMeal[`strIngredient${i}`]
+        const ingredientString = theMeal[`strMeasure${i}`] +"  "+  theMeal[`strIngredient${i}`]
         ingredientArr.push(ingredientString)        
     }    
       
      theMeal['ingredientArr']=ingredientArr 
 }
-displayIngredients(theMeal)
-
+displayIngredients (theMeal)
 }
-  
-const displayIngredients = (theMeal) => {
-    const {quanity, ingredient} = theMeal
-    const newDisplay = document.createElement('hi')
-    newDisplay.innerText = theMeal.ingredientArr
-    ingredientHolder.appendChild(newDisplay)
-    console.log(newDisplay)
+    
+const displayIngredients = (theMeal, meal) => {
+    let mealList= theMeal.ingredientArr.forEach(function(meal)  {
+        console.log(meal)
+        const newDisplay = document.createElement('li')
+        const list = document.querySelector('#ingredient-holder')
+        newDisplay.innerText = meal
+        ingredientHolder.appendChild(newDisplay)
+        list.addEventListener('click', function (e) {
+            if (e.target) {
+            e.target.classList.add('done')
+  }
+})
+
+
+    })
 }
 
-const resetPage = () => {
-   recipeHolder.innerText= "" 
-} 
+
+    
+    // const newDisplay = document.createElement('li')
+    // newDisplay.innerText = theMeal.ingredientArr
+//     ingredientHolder.appendChild(newDisplay)
+//     console.log(newDisplay)
+// }
+
+// const resetPage = () => {
+//    recipeHolder.innerHTML= ""
+//    recipeName.innerHTML= 
+// //    dropDown.innerHTML=""
+// //    recpClick.innerHTML=""
+//    mealHolder.innerHTML=""
+//    ingredientHolder.innerHTML=""
+// } 
 
 dropDown.addEventListener('click',fetchByCuisine)
-recipeName.addEventListener('submit',fetchByName)
+recipeName.addEventListener('submit',fetchByName);
 
