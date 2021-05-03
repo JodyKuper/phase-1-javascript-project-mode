@@ -1,22 +1,22 @@
-
+//API variables//
 const Meal_URL ='https://www.themealdb.com/api/json/v1/1/search.php'
 const Area_URL ='https://www.themealdb.com/api/json/v1/1/filter.php' 
+//Id variables for DOM//
 const dropDown = document.getElementById('cuisine-dropdown')
 const recpClick= document.getElementById('search-recipe')
 const recipeName= document.getElementById('search-form-recipe')
 const mealHolder= document.getElementById('meal-holder')
 const recipeHolder= document.getElementById('recipe-holder')
 const ingredientHolder= document.getElementById('ingredient-holder')
+//Array of meals//
 let MEAL_ARRAY = []
 
+//fetch meals by name//
 const fetchByName = () => { 
-    // debugger
-    event.preventDefault()
-    // resetPage()
+    event.preventDefault() 
     fetch(Meal_URL +`?s=${recipeName[0].value}`)
     .then ((res)=> res.json())
     .then((data) => {
-        // debugger
         data.meals.forEach((recipe)=> {
           recipeListItem(recipe)
           MEAL_ARRAY.push(recipe) 
@@ -24,9 +24,10 @@ const fetchByName = () => {
     })
 }
 
+//Fetch means by area//
 const fetchByCuisine =() => {
     event.preventDefault()
-    // resetPage()
+    
 fetch(Area_URL +`?a=${dropDown.value}`)
 .then ((res)=>res.json())
 .then ((data)=> {
@@ -36,9 +37,8 @@ fetch(Area_URL +`?a=${dropDown.value}`)
     })   
 })
 }
-
+//List searched for meals by name in HTML//
 const recipeListItem  =(recipe) => {
-    // resetPage()
     const newRecipe= document.createElement('li')
     newRecipe.innerText=recipe.strMeal
     // console.log(recipe)
@@ -47,9 +47,8 @@ const recipeListItem  =(recipe) => {
 }
 
 
-
+//List dropdowm meals by area in HTML//
 const mealList = (cuisines) => {
-    // resetPage()
     const newMeal = document.createElement('li')
     newMeal.innerText=cuisines.strMeal
     mealHolder.appendChild(newMeal)
@@ -57,26 +56,25 @@ const mealList = (cuisines) => {
 
 }
 
+//Loop threw Meal for ingredients and measurement//
 const findMeal= mealTerm => {
     return MEAL_ARRAY.find(e => e.strMeal === mealTerm)
     }
 const ingredientList =(e)=> {
     const mealTerm = e.target.innerText
-   
     const theMeal = findMeal(mealTerm)
-    
     if (!theMeal.ingredientArr) {
         let ingredientArr = [];
         for(let i=1; i<=20; ++i) {
         const ingredientString = theMeal[`strMeasure${i}`] +"  "+  theMeal[`strIngredient${i}`]
         ingredientArr.push(ingredientString)        
     }    
-      
      theMeal['ingredientArr']=ingredientArr 
 }
 displayIngredients (theMeal)
 }
     
+//List theMeal on Html.  Use dom connect CSS to crossout list//
 const displayIngredients = (theMeal, meal) => {
     let mealList= theMeal.ingredientArr.forEach(function(meal)  {
         console.log(meal)
@@ -90,26 +88,9 @@ const displayIngredients = (theMeal, meal) => {
   }
 })
 
-
     })
 }
-
-
-    
-    // const newDisplay = document.createElement('li')
-    // newDisplay.innerText = theMeal.ingredientArr
-//     ingredientHolder.appendChild(newDisplay)
-//     console.log(newDisplay)
-// }
-
-// const resetPage = () => {
-//    recipeHolder.innerHTML= ""
-//    recipeName.innerHTML= 
-// //    dropDown.innerHTML=""
-// //    recpClick.innerHTML=""
-//    mealHolder.innerHTML=""
-//    ingredientHolder.innerHTML=""
-// } 
+//main eventListeners//
 
 dropDown.addEventListener('click',fetchByCuisine)
 recipeName.addEventListener('submit',fetchByName);
