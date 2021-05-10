@@ -2,8 +2,7 @@
 const Meal_URL ='https://www.themealdb.com/api/json/v1/1/search.php'
 const Area_URL ='https://www.themealdb.com/api/json/v1/1/filter.php' 
 //Id variables for DOM//
-const dropDown = document.getElementById('cuisine-dropdown')
-const recpClick= document.getElementById('search-recipe')
+const dropDown = document.getElementById('cuisine-dropdown)
 const recipeName= document.getElementById('search-form-recipe')
 const mealHolder= document.getElementById('meal-holder')
 const recipeHolder= document.getElementById('recipe-holder')
@@ -41,6 +40,7 @@ fetch(Area_URL +`?a=${dropDown.value}`)
 const recipeListItem  =(recipe) => {
     const newRecipe= document.createElement('li')
     newRecipe.innerText=recipe.strMeal
+    
     // console.log(recipe)
     recipeHolder.appendChild(newRecipe)
     newRecipe.addEventListener('click', ingredientList )
@@ -56,31 +56,34 @@ const mealList = (cuisines) => {
 
 }
 
-//Loop threw Meal for ingredients and measurement//
+//Return the meal array equeal to strMeal//
 const findMeal= mealTerm => {
     return MEAL_ARRAY.find(e => e.strMeal === mealTerm)
     }
+
+ //Loop threw Meal for ingredients and measurement//   
 const ingredientList =(e)=> {
     const mealTerm = e.target.innerText
-    const theMeal = findMeal(mealTerm)
-    if (!theMeal.ingredientArr) {
-        let ingredientArr = [];
+    const recipeArray = findMeal(mealTerm)
+    if (!recipeArray.ingredientArray) {
+        let ingredientArray = [];
         for(let i=1; i<=20; ++i) {
-        const ingredientString = theMeal[`strMeasure${i}`] +"  "+  theMeal[`strIngredient${i}`]
-        ingredientArr.push(ingredientString)        
+        const ingredientString = recipeArray[`strMeasure${i}`] +"  "+  recipeArray[`strIngredient${i}`]
+        ingredientArray.push(ingredientString)        
     }    
-     theMeal['ingredientArr']=ingredientArr 
+     recipeArray['ingredientArray']=ingredientArray 
 }
-displayIngredients (theMeal)
+displayIngredients (recipeArray)
 }
     
 //List theMeal on Html.  Use dom connect CSS to crossout list//
-const displayIngredients = (theMeal, meal) => {
-    let mealList= theMeal.ingredientArr.forEach(function(meal)  {
-        console.log(meal)
+const displayIngredients = (recipeArray, finalRecipe) => {
+    // console.log(recipeArray.ingredientArray)
+    let mealList= recipeArray.ingredientArray.sort().forEach(function(finalRecipe)  {
+        console.log(finalRecipe)
         const newDisplay = document.createElement('li')
         const list = document.querySelector('#ingredient-holder')
-        newDisplay.innerText = meal
+        newDisplay.innerText = finalRecipe
         ingredientHolder.appendChild(newDisplay)
         list.addEventListener('click', function (e) {
             if (e.target) {
@@ -91,7 +94,6 @@ const displayIngredients = (theMeal, meal) => {
     })
 }
 //main eventListeners//
-
 dropDown.addEventListener('click',fetchByCuisine)
 recipeName.addEventListener('submit',fetchByName);
 
